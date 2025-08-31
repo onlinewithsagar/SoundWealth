@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundWealth - Free Open Source Expense Tracking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1a202c',
+                        'charcoal': '#2d3748',
+                        'teal': '#38b2ac',
+                        'emerald': '#10b981',
+                        'gold': '#f6ad55',
+                        'oss-blue': '#3b82f6'
+                    },
+                    fontFamily: {
+                        'modern': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        }
+        
+        /* Enhanced pulse animation */
+        .pulse-animation {
+            animation: pulse-enhanced 3s infinite;
+        }
+        
+        @keyframes pulse-enhanced {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(56, 178, 172, 0.7);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 15px rgba(56, 178, 172, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(56, 178, 172, 0);
+            }
+        }
+        
+        /* Enhanced wave animation */
+        .wave-animation {
+            animation: wave-enhanced 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes wave-enhanced {
+            0%, 100% { 
+                transform: scaleY(1); 
+                opacity: 0.7;
+            }
+            50% { 
+                transform: scaleY(1.8); 
+                opacity: 1;
+            }
+        }
+        
+        .hover-lift {
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Enhanced chart bars */
+        .chart-bar {
+            transition: height 1.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.8s ease;
+        }
+        
+        .chart-bar:hover {
+            background-color: #48d1cc !important;
+        }
+        
+        /* Enhanced animations */
+        .float-animation {
+            animation: float-enhanced 6s ease-in-out infinite;
+        }
+        
+        @keyframes float-enhanced {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg); 
+            }
+            33% { 
+                transform: translateY(-20px) rotate(5deg); 
+            }
+            66% { 
+                transform: translateY(-10px) rotate(-5deg); 
+            }
+        }
+        
+        .glow-animation {
+            animation: glow-enhanced 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow-enhanced {
+            from { 
+                box-shadow: 0 0 10px -10px #38b2ac, 0 0 20px -10px #10b981;
+            }
+            to { 
+                box-shadow: 0 0 20px 10px rgba(56, 178, 172, 0.5), 0 0 30px 15px rgba(16, 185, 129, 0.3);
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .rotate-animation {
+            animation: rotate-enhanced 25s linear infinite;
+        }
+        
+        @keyframes rotate-enhanced {
+            from { 
+                transform: rotate(0deg) scale(1);
+            }
+            50% { 
+                transform: rotate(180deg) scale(1.1);
+            }
+            to { 
+                transform: rotate(360deg) scale(1);
+            }
+        }
+        
+        /* Enhanced flip card */
+        .flip-card {
+            perspective: 1200px;
+        }
+        
+        .flip-card-inner {
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 1rem;
+        }
+        
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+        
+        /* Enhanced progress ring */
+        .progress-ring {
+            transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Enhanced stagger animation */
+        .stagger-animation > * {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        /* Enhanced back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #38b2ac 0%, #10b981 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+            transition: opacity 0.4s, transform 0.4s, background 0.4s;
+            z-index: 1000;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .oss-badge {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            animation: bounce-subtle 5s infinite ease-in-out;
+        }
+        
+        /* Enhanced shimmer animation */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        .shimmer-text {
+            background: linear-gradient(90deg, #38b2ac, #10b981, #38b2ac, #10b981, #38b2ac);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s infinite linear;
+        }
+        
+        @keyframes bounce-subtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        .bounce-subtle {
+            animation: bounce-subtle 5s infinite ease-in-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        
+        .stagger-item {
+            opacity: 0;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #38b2ac;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #38b2ac; }
+        }
+
+        /* Full-screen hero */
+        .hero-fullscreen {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 80px;
+        }
+        
+        /* Enhanced FAQ animations */
+        .faq-item {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+        
+        .faq-content {
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .faq-item.active .faq-content {
+            max-height: 500px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .faq-icon {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Particle animation */
+        .particles-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float-particle 15s infinite linear;
+        }
+        
+        @keyframes float-particle {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Text glow effect */
+        .text-glow {
+            text-shadow: 0 0 10px rgba(56, 178, 172, 0.7),
+                         0 0 20px rgba(56, 178, 172, 0.5),
+                         0 0 30px rgba(56, 178, 172, 0.3);
+        }
+        
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(90deg, #38b2ac, #10b981, #f6ad55);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-shift 5s ease infinite;
+            background-size: 200% auto;
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Hover effects for cards */
+        .feature-card {
+            transition: all 0.4s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Button hover effect */
+        .btn-hover-effect {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .btn-hover-effect:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.6s ease;
+        }
+        
+        .btn-hover-effect:hover:before {
+            left: 100%;
+        }
+        
+        /* Navigation animation */
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-item:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #38b2ac;
+            transition: width 0.4s ease;
+        }
+        
+        .nav-item:hover:after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="gradient-bg text-white min-h-screen">
+    <!-- Particles Background -->
+    <div class="particles-container" id="particles"></div>
+    
+    <!-- Navigation -->
+    <nav class="container mx-auto px-6 py-4 sticky top-0 z-50 bg-navy bg-opacity-90 backdrop-blur-sm shadow-md">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-teal rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <span class="text-xl font-bold gradient-text">SoundWealth</span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#features" class="nav-item hover:text-teal transition-colors">Features</a>
+                <a href="#how-it-works" class="nav-item hover:text-teal transition-colors">How It Works</a>
+                <a href="#dashboard" class="nav-item hover:text-teal transition-colors">Dashboard</a>
+                <a href="#opensource" class="nav-item hover:text-teal transition-colors">Open Source</a>
+                <a href="#faq" class="nav-item hover:text-teal transition-colors">FAQ</a>
+                <a href="#tips" class="nav-item hover:text-teal transition-colors">Tips</a>
+            </div>
+            <button class="md:hidden">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Full Screen) -->
+    <section class="hero-fullscreen container mx-auto px-6 text-center relative">
+        <div class="flex justify-center mb-6">
+            <div class="oss-badge px-4 py-2 rounded-full text-sm font-semibold inline-flex items-center">
+                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+                FREE & OPEN SOURCE
+            </div>
+        </div>
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight fade-in">
+            Track Your Spending.<br>
+            <span class="shimmer-text">Master Your Money.</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed fade-in">
+            Take control of your finances with our intelligent voice-powered expense tracker. 
+            Simple, secure, and completely free forever.
+        </p>
+        <a href="login.html" class="fade-in">
+            <button class="bg-teal hover:bg-emerald text-white px-12 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover-lift glow-animation btn-hover-effect">
+                Get Started Now
+            </button>
+        </a>
+        <p class="text-gray-400 mt-4 fade-in">No credit card required • Free forever • Open source</p>
+        
+        <!-- Animated coins floating around -->
+        <div class="absolute top-20 left-10 opacity-30 float-animation" style="animation-delay: 0s;">
+            <svg class="w-12 h-12 text-gold rotate-animation" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"/>
+            </svg>
+        </div>
+        <div class="absolute top-40 right-20 opacity-40 float-animation" style="animation-delay: 1s;">
+            <svg class="w-8 h-8 text-emerald rotate-animation" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"/>
+            </svg>
+        </div>
+        <div class="absolute bottom-40 left-20 opacity-50 float-animation" style="animation-delay: 2s;">
+            <svg class="w-10 h-10 text-teal rotate-animation" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Voice Assistant Feature -->
+    <section id="features" class="container mx-auto px-6 py-20">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="fade-in">
+                <h2 class="text-4xl font-bold mb-6">Say It. Track It. <span class="text-teal text-glow">Done.</span></h2>
+                <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                    Our advanced voice assistant makes expense tracking effortless. Just speak naturally: 
+                    "I spent $12 on coffee" and watch your budget update instantly.
+                </p>
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-6 h-6 bg-teal rounded-full flex items-center justify-center">
+                            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                        </div>
+                        <span class="text-gray-300">Natural language processing</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-6 h-6 bg-teal rounded-full flex items-center justify-center">
+                            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                        </div>
+                        <span class="text-gray-300">Automatic categorization</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-6 h-6 bg-teal rounded-full flex items-center justify-center">
+                            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                        </div>
+                        <span class="text-gray-300">Works offline</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-6 h-6 bg-teal rounded-full flex items-center justify-center">
+                            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                        </div>
+                        <span class="text-gray-300">Multi-language support</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-6 h-6 bg-teal rounded-full flex items-center justify-center">
+                            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                        </div>
+                        <span class="text-gray-300">Customizable categories</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center fade-in">
+                <div class="relative">
+                    <div class="w-64 h-64 bg-charcoal rounded-full flex items-center justify-center pulse-animation">
+                        <div class="w-32 h-32 bg-teal rounded-full flex items-center justify-center">
+                            <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- Sound waves -->
+                    <div class="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-8">
+                        <div class="flex space-x-1">
+                            <div class="w-1 h-8 bg-teal wave-animation" style="animation-delay: 0s;"></div>
+                            <div class="w-1 h-12 bg-teal wave-animation" style="animation-delay: 0.1s;"></div>
+                            <div class="w-1 h-6 bg-teal wave-animation" style="animation-delay: 0.2s;"></div>
+                        </div>
+                    </div>
+                    <div class="absolute top-1/2 right-0 transform -translate-y-1/2 translate-x-8">
+                        <div class="flex space-x-1">
+                            <div class="w-1 h-6 bg-teal wave-animation" style="animation-delay: 0.3s;"></div>
+                            <div class="w-1 h-12 bg-teal wave-animation" style="animation-delay: 0.4s;"></div>
+                            <div class="w-1 h-8 bg-teal wave-animation" style="animation-delay: 0.5s;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Section: How It Works -->
+    <section id="how-it-works" class="container mx-auto px-6 py-20">
+        <div class="text-center mb-16 fade-in">
+            <h2 class="text-4xl font-bold mb-6">How SoundWealth Works</h2>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                Simple steps to get started with effortless expense tracking and financial insights.
+            </p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="feature-card bg-charcoal rounded-2xl p-6 hover-lift fade-in">
+                <div class="w-16 h-16 bg-teal rounded-xl flex items-center justify-center mb-6 mx-auto">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-4 text-center">Sign Up Free</h3>
+                <p class="text-gray-300 text-center">Create your account in seconds. No credit card required, and your data is secure from day one.</p>
+            </div>
+            <div class="feature-card bg-charcoal rounded-2xl p-6 hover-lift fade-in">
+                <div class="w-16 h-16 bg-emerald rounded-xl flex items-center justify-center mb-6 mx-auto">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-4 text-center">Speak Your Expenses</h3>
+                <p class="text-gray-300 text-center">Use voice commands to log expenses naturally. The app categorizes and tracks them automatically.</p>
+            </div>
+            <div class="feature-card bg-charcoal rounded-2xl p-6 hover-lift fade-in">
+                <div class="w-16 h-16 bg-gold rounded-xl flex items-center justify-center mb-6 mx-auto">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-4 text-center">Get Insights</h3>
+                <p class="text-gray-300 text-center">View real-time dashboards, reports, and tips to optimize your spending and savings.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section id="dashboard" class="container mx-auto px-6 py-20">
+        <div class="text-center mb-16 fade-in">
+            <h2 class="text-4xl font-bold mb-6">Your Financial Command Center</h2>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                Get instant insights into your spending patterns with our clean, intuitive dashboard.
+            </p>
+        </div>
+        
+        <div class="bg-charcoal rounded-2xl p-8 hover-lift fade-in">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <!-- Total Spending -->
+                <div class="bg-navy rounded-xl p-6 text-center">
+                    <h3 class="text-gray-400 text-sm uppercase tracking-wide mb-2">This Month</h3>
+                    <p class="text-3xl font-bold text-teal">$2,847</p>
+                    <p class="text-green-400 text-sm mt-2">↓ 12% from last month</p>
+                </div>
+                
+                <!-- Budget Progress -->
+                <div class="bg-navy rounded-xl p-6">
+                    <h3 class="text-gray-400 text-sm uppercase tracking-wide mb-4">Budget Progress</h3>
+                    <div class="w-full bg-gray-700 rounded-full h-3 mb-2">
+                        <div class="bg-teal h-3 rounded-full" style="width: 68%;"></div>
+                    </div>
+                    <p class="text-sm text-gray-300">$2,040 of $3,000 used</p>
+                </div>
+                
+                <!-- Savings Goal -->
+                <div class="bg-navy rounded-xl p-6 text-center">
+                    <h3 class="text-gray-400 text-sm uppercase tracking-wide mb-2">Savings Goal</h3>
+                    <p class="text-3xl font-bold text-emerald">$1,153</p>
+                    <p class="text-emerald text-sm mt-2">On track for $5,000</p>
+                </div>
+            </div>
+            
+            <!-- Category Breakdown -->
+            <div class="bg-navy rounded-xl p-6">
+                <h3 class="text-lg font-semibold mb-6">Spending by Category</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="text-center">
+                        <div class="w-full bg-gray-700 rounded-lg h-24 mb-2 flex items-end justify-center p-2">
+                            <div class="w-8 bg-teal rounded-t chart-bar" style="height: 80%;"></div>
+                        </div>
+                        <p class="text-sm text-gray-300">Food</p>
+                        <p class="text-teal font-semibold">$890</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-full bg-gray-700 rounded-lg h-24 mb-2 flex items-end justify-center p-2">
+                            <div class="w-8 bg-emerald rounded-t chart-bar" style="height: 60%;"></div>
+                        </div>
+                        <p class="text-sm text-gray-300">Transport</p>
+                        <p class="text-emerald font-semibold">$420</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-full bg-gray-700 rounded-lg h-24 mb-2 flex items-end justify-center p-2">
+                            <div class="w-8 bg-gold rounded-t chart-bar" style="height: 45%;"></div>
+                        </div>
+                        <p class="text-sm text-gray-300">Shopping</p>
+                        <p class="text-gold font-semibold">$315</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-full bg-gray-700 rounded-lg h-24 mb-2 flex items-end justify-center p-2">
+                            <div class="w-8 bg-blue-400 rounded-t chart-bar" style="height: 30%;"></div>
+                        </div>
+                        <p class="text-sm text-gray-300">Bills</p>
+                        <p class="text-blue-400 font-semibold">$210</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-full bg-gray-700 rounded-lg h-24 mb-2 flex items-end justify-center p-2">
+                            <div class="w-8 bg-purple-400 rounded-t chart-bar" style="height: 50%;"></div>
+                        </div>
+                        <p class="text-sm text-gray-300">Entertainment</p>
+                        <p class="text-purple-400 font-semibold">$150</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-full bg-gray-700 rounded-lg h-24 mb-2 flex items-end justify-center p-2">
+                            <div class="w-8 bg-red-400 rounded-t chart-bar" style="height: 25%;"></div>
+                        </div>
+                        <p class="text-sm text-gray-300">Health</p>
+                        <p class="text-red-400 font-semibold">$120</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Open Source Section -->
+    <section id="opensource" class="container mx-auto px-6 py-20">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="flex justify-center fade-in">
+                <div class="relative">
+                    <div class="w-48 h-48 bg-charcoal rounded-2xl flex items-center justify-center hover-lift">
+                        <svg class="w-24 h-24 text-oss-blue" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <!-- Floating GitHub stars -->
+                    <div class="absolute -top-4 -right-4 w-16 h-16 bg-oss-blue rounded-full flex items-center justify-center float-animation">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="fade-in">
+                <h2 class="text-4xl font-bold mb-6">Open Source. <span class="text-oss-blue">Free Forever.</span></h2>
+                <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                    SoundWealth is committed to open source principles. We believe financial tools should be accessible to everyone, 
+                    not hidden behind paywalls.
+                </p>
+                <div class="space-y-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-oss-blue rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold mb-2">Completely Free</h3>
+                            <p class="text-gray-300">No subscriptions, no premium features. Everything is 100% free, now and forever.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-oss-blue rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold mb-2">Open Source</h3>
+                            <p class="text-gray-300">View, modify, and contribute to our codebase. Transparency builds trust.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-oss-blue rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold mb-2">Community Driven</h3>
+                            <p class="text-gray-300">Built by and for the community. Your feedback shapes the future of SoundWealth.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <a href="https://github.com/soundwealth" class="inline-flex items-center bg-charcoal hover:bg-navy text-white px-6 py-3 rounded-lg transition-colors btn-hover-effect">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"/>
+                        </svg>
+                        Contribute on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Section -->
+    <section id="security" class="container mx-auto px-6 py-20">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="flex justify-center fade-in">
+                <div class="relative">
+                    <div class="w-48 h-48 bg-charcoal rounded-2xl flex items-center justify-center hover-lift">
+                        <svg class="w-24 h-24 text-teal" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                        </svg>
+                    </div>
+                    <!-- Floating security badges -->
+                    <div class="absolute -top-4 -right-4 w-16 h-16 bg-emerald rounded-full flex items-center justify-center float-animation">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="fade-in">
+                <h2 class="text-4xl font-bold mb-6">Your Data. <span class="text-teal">Your Control.</span></h2>
+                <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                    Built on enterprise-grade cloud infrastructure with bank-level security. 
+                    Your financial data is encrypted, protected, and always under your control.
+                </p>
+                <div class="space-y-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-teal rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold mb-2">End-to-End Encryption</h3>
+                            <p class="text-gray-300">Your data is encrypted before it leaves your device and remains protected in our secure cloud.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-emerald rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold mb-2">GDPR Compliant</h3>
+                            <p class="text-gray-300">Full compliance with international privacy standards. Delete your data anytime.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-gold rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold mb-2">No Data Selling</h3>
+                            <p class="text-gray-300">We never sell or share your data. As an open-source project, privacy is our core value.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Financial Tips Section -->
+    <section id="tips" class="container mx-auto px-6 py-20">
+        <div class="text-center mb-16 fade-in">
+            <h2 class="text-4xl font-bold mb-6">Financial Wellness Tips</h2>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                Expert advice to help you build healthy financial habits and achieve your money goals.
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Tip 1 -->
+            <div class="bg-charcoal rounded-2xl p-6 hover-lift fade-in flip-card h-96">
+                <div class="flip-card-inner h-full">
+                    <div class="flip-card-front flex flex-col justify-between h-full">
+                        <div class="w-16 h-16 bg-teal rounded-xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4">The 50/30/20 Rule</h3>
+                        <p class="text-gray-300 mb-6">A simple budgeting framework: 50% needs, 30% wants, and 20% savings/debt repayment.</p>
+                        <p class="text-teal mt-auto">Tap to learn more →</p>
+                    </div>
+                    <div class="flip-card-back bg-teal rounded-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-xl font-semibold mb-4 text-white">How to Implement</h3>
+                        <p class="text-white">Start by categorizing your expenses. Use SoundWealth's auto-categorization to see where your money goes and adjust accordingly.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tip 2 -->
+            <div class="bg-charcoal rounded-2xl p-6 hover-lift fade-in flip-card h-96">
+                <div class="flip-card-inner h-full">
+                    <div class="flip-card-front flex flex-col justify-between h-full">
+                        <div class="w-16 h-16 bg-emerald rounded-xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4">Automate Savings</h3>
+                        <p class="text-gray-300 mb-6">Pay yourself first by setting up automatic transfers to savings on payday.</p>
+                        <p class="text-teal mt-auto">Tap to learn more →</p>
+                    </div>
+                    <div class="flip-card-back bg-emerald rounded-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-xl font-semibold mb-4 text-white">Set It & Forget It</h3>
+                        <p class="text-white">Use SoundWealth's savings goals feature to track progress automatically. Even small, regular contributions add up significantly over time.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tip 3 -->
+            <div class="bg-charcoal rounded-2xl p-6 hover-lift fade-in flip-card h-96">
+                <div class="flip-card-inner h-full">
+                    <div class="flip-card-front flex flex-col justify-between h-full">
+                        <div class="w-16 h-16 bg-gold rounded-xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4">Review Weekly</h3>
+                        <p class="text-gray-300 mb-6">Regular check-ins prevent small issues from becoming big problems.</p>
+                        <p class="text-teal mt-auto">Tap to learn more →</p>
+                    </div>
+                    <div class="flip-card-back bg-gold rounded-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-xl font-semibold mb-4 text-white">Make It a Habit</h3>
+                        <p class="text-white">Schedule 15 minutes each week to review your spending in SoundWealth. Use voice commands to quickly understand your financial status.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Additional Tips -->
+        <div class="grid md:grid-cols-2 gap-8 mt-16">
+            <div class="bg-charcoal rounded-2xl p-6 hover-lift fade-in">
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 bg-teal rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Emergency Fund First</h3>
+                        <p class="text-gray-300">Before investing, build an emergency fund with 3-6 months of expenses. This protects you from unexpected financial shocks.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-charcoal rounded-2xl p-6 hover-lift fade-in">
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 bg-emerald rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Track Net Worth</h3>
+                        <p class="text-gray-300">Monitor your net worth monthly. It's the ultimate measure of your financial health and progress toward goals.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-charcoal rounded-2xl p-6 hover-lift fade-in">
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 bg-gold rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Invest in Low-Cost Index Funds</h3>
+                        <p class="text-gray-300">For long-term growth, consider low-fee index funds. Track your investments alongside expenses in SoundWealth.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-charcoal rounded-2xl p-6 hover-lift fade-in">
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 bg-teal rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Avoid Lifestyle Inflation</h3>
+                        <p class="text-gray-300">As income increases, maintain spending levels. Use SoundWealth to monitor and prevent unnecessary upgrades.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="container mx-auto px-6 py-20">
+        <div class="text-center mb-16 fade-in">
+            <h2 class="text-4xl font-bold mb-6">Frequently Asked Questions</h2>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                Everything you need to know about SoundWealth. Can't find an answer? Contact us.
+            </p>
+        </div>
+        
+        <div class="max-w-3xl mx-auto space-y-4">
+            <!-- FAQ Item 1 -->
+            <div class="faq-item bg-charcoal rounded-xl overflow-hidden">
+                <button class="flex justify-between items-center w-full text-left p-6" onclick="toggleFAQEnhanced(1)">
+                    <h3 class="text-lg font-semibold">How does the voice recognition work?</h3>
+                    <svg class="faq-icon w-5 h-5 text-teal transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="faq-content px-6 pb-6">
+                    <p class="text-gray-300">SoundWealth uses advanced natural language processing to understand your spending descriptions. You can say things like "I spent $12.50 on lunch at Cafe Milano" or "Just paid the $89 electricity bill." The system automatically categorizes these expenses and adds them to your budget.</p>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 2 -->
+            <div class="faq-item bg-charcoal rounded-xl overflow-hidden">
+                <button class="flex justify-between items-center w-full text-left p-6" onclick="toggleFAQEnhanced(2)">
+                    <h3 class="text-lg font-semibold">Is it really completely free?</h3>
+                    <svg class="faq-icon w-5 h-5 text-teal transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="faq-content px-6 pb-6">
+                    <p class="text-gray-300">Yes! SoundWealth is 100% free and open source. There are no premium features, no subscriptions, and no hidden costs. We believe financial tools should be accessible to everyone.</p>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 3 -->
+            <div class="faq-item bg-charcoal rounded-xl overflow-hidden">
+                <button class="flex justify-between items-center w-full text-left p-6" onclick="toggleFAQEnhanced(3)">
+                    <h3 class="text-lg font-semibold">Can I use SoundWealth without internet?</h3>
+                    <svg class="faq-icon w-5 h-5 text-teal transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="faq-content px-6 pb-6">
+                    <p class="text-gray-300">Yes! SoundWealth works offline. Your voice commands are processed locally on your device when offline, and data syncs automatically when you reconnect. This ensures you can track expenses anywhere, anytime.</p>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 4 -->
+            <div class="faq-item bg-charcoal rounded-xl overflow-hidden">
+                <button class="flex justify-between items-center w-full text-left p-6" onclick="toggleFAQEnhanced(4)">
+                    <h3 class="text-lg font-semibold">How can I contribute to the project?</h3>
+                    <svg class="faq-icon w-5 h-5 text-teal transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="faq-content px-6 pb-6">
+                    <p class="text-gray-300">We welcome contributions! You can help by writing code, improving documentation, designing UI/UX, translating, or simply by reporting bugs and suggesting features. Visit our GitHub repository to get started.</p>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 5 -->
+            <div class="faq-item bg-charcoal rounded-xl overflow-hidden">
+                <button class="flex justify-between items-center w-full text-left p-6" onclick="toggleFAQEnhanced(5)">
+                    <h3 class="text-lg font-semibold">Can I connect my bank accounts?</h3>
+                    <svg class="faq-icon w-5 h-5 text-teal transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="faq-content px-6 pb-6">
+                    <p class="text-gray-300">Yes, SoundWealth offers secure bank connections through Plaid, allowing you to automatically import transactions from thousands of financial institutions. This works alongside our voice feature for comprehensive tracking.</p>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 6 -->
+            <div class="faq-item bg-charcoal rounded-xl overflow-hidden">
+                <button class="flex justify-between items-center w-full text-left p-6" onclick="toggleFAQEnhanced(6)">
+                    <h3 class="text-lg font-semibold">What platforms is SoundWealth available on?</h3>
+                    <svg class="faq-icon w-5 h-5 text-teal transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="faq-content px-6 pb-6">
+                    <p class="text-gray-300">SoundWealth is available as a web app, iOS app, and Android app. All versions sync seamlessly across devices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial -->
+    <section class="container mx-auto px-6 py-20">
+        <div class="bg-charcoal rounded-2xl p-12 text-center hover-lift fade-in">
+            <div class="max-w-3xl mx-auto">
+                <svg class="w-12 h-12 text-teal mx-auto mb-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z"/>
+                </svg>
+                <blockquote class="text-2xl font-light mb-8 leading-relaxed">
+                    "SoundWealth transformed how I manage money. I went from avoiding my budget to actually enjoying the process. 
+                    The voice feature is a game-changer – I can log expenses while driving, cooking, or anywhere."
+                </blockquote>
+                <div class="flex items-center justify-center space-x-4">
+                    <div class="w-12 h-12 bg-teal rounded-full flex items-center justify-center">
+                        <span class="text-white font-semibold">SM</span>
+                    </div>
+                    <div class="text-left">
+                        <p class="font-semibold">Sarah Martinez</p>
+                        <p class="text-gray-400">Marketing Director</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="container mx-auto px-6 py-20 text-center">
+        <h2 class="text-4xl font-bold mb-6 fade-in">Ready to Master Your Money?</h2>
+        <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto fade-in">
+            Join thousands who've taken control of their finances with SoundWealth. 
+            Start today – completely free forever.
+        </p>
+        <div class="fade-in">
+            <button class="bg-teal hover:bg-emerald text-white px-12 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover-lift glow-animation btn-hover-effect">
+                Get Started Now
+            </button>
+        </div>
+        <p class="text-gray-400 mt-6 fade-in">No credit card required • 100% Free • Open source</p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-700 py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                    <div class="w-8 h-8 bg-teal rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold gradient-text">SoundWealth</span>
+                </div>
+                <div class="flex space-x-8 text-gray-400">
+                    <a href="#" class="nav-item hover:text-teal transition-colors">Privacy</a>
+                    <a href="#" class="nav-item hover:text-teal transition-colors">Terms</a>
+                    <a href="#" class="nav-item hover:text-teal transition-colors">Support</a>
+                    <a href="#faq" class="nav-item hover:text-teal transition-colors">FAQ</a>
+                </div>
+            </div>
+            <div class="text-center text-gray-400 mt-8">
+                <p>&copy; 2024 SoundWealth. Free and open source financial tools for everyone.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <div class="back-to-top" id="backToTop">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate chart bars on scroll
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bars = entry.target.querySelectorAll('.chart-bar');
+                    bars.forEach((bar, index) => {
+                        setTimeout(() => {
+                            bar.style.height = bar.style.height || '80%';
+                        }, index * 200);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        const dashboardSection = document.querySelector('#dashboard');
+        if (dashboardSection) {
+            observer.observe(dashboardSection);
+        }
+
+        // Add click handlers for buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Add a subtle click animation
+                this.style.transform = 'scale(0.95)';   
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+                
+                // Navigate to login page for Get Started buttons
+                if (this.textContent.includes('Get Started')) {
+                    window.location.href = 'login.html';
+                }
+            });
+        });
+
+        // Fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(element => {
+            fadeObserver.observe(element);
+        });
+
+        // Enhanced FAQ toggle functionality
+        function toggleFAQEnhanced(num) {
+            const faqItem = document.querySelectorAll('.faq-item')[num - 1];
+            faqItem.classList.toggle('active');
+            
+            // Close other FAQs when opening one
+            if (faqItem.classList.contains('active')) {
+                document.querySelectorAll('.faq-item').forEach((item, index) => {
+                    if (index !== num - 1 && item.classList.contains('active')) {
+                        item.classList.remove('active');
+                    }
+                });
+            }
+        }
+
+        // Back to top button functionality
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Create particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size
+                const size = Math.random() * 15 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random color
+                const colors = ['#38b2ac', '#10b981', '#f6ad55', '#3b82f6'];
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Random animation duration
+                particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Make hero elements visible on load
+            document.querySelectorAll('.fade-in').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight) {
+                    el.classList.add('visible');
+                }
+            });
+            
+            // Add staggered animation to features list
+            const features = document.querySelectorAll('#features .flex.items-center');
+            features.forEach((feature, index) => {
+                feature.style.transitionDelay = `${index * 0.1}s`;
+            });
+            
+            // Add typewriter effect to hero text
+            const heroText = document.querySelector('.shimmer-text');
+            if (heroText) {
+                setTimeout(() => {
+                    heroText.classList.add('typewriter');
+                }, 1000);
+            }
+            
+            // Create particles
+            createParticles();
+        });
+    </script>
+</body>
+</html>
