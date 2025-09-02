@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundWealth - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1a202c',
+                        'charcoal': '#2d3748',
+                        'teal': '#38b2ac',
+                        'emerald': '#10b981',
+                        'gold': '#f6ad55'
+                    },
+                    fontFamily: {
+                        'modern': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+        
+        .wave-animation {
+            animation: wave 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes wave {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(1.5); }
+        }
+        
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .login-container {
+            background: rgba(45, 55, 72, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 450px;
+            transform: perspective(1200px) rotateY(0deg) rotateX(0deg);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(56, 178, 172, 0.2);
+        }
+        
+        .login-container:hover {
+            transform: perspective(1200px) rotateY(5deg) rotateX(3deg);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+        }
+        
+        .input-field {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-field input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #4a5568;
+            border-radius: 0.75rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background: rgba(26, 32, 44, 0.6);
+            color: white;
+            padding-right: 45px;
+        }
+        
+        .input-field input:focus {
+            border-color: #38b2ac;
+            box-shadow: 0 0 15px rgba(56, 178, 172, 0.4);
+            background: rgba(26, 32, 44, 0.8);
+            transform: scale(1.02);
+        }
+        
+        .input-field label {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            color: #a0aec0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            font-weight: 500;
+            background: transparent !important;
+        }
+        
+        .input-field input:focus + label,
+        .input-field input:not(:placeholder-shown) + label {
+            top: -0.8rem;
+            left: 0.8rem;
+            font-size: 0.75rem;
+            color: #38b2ac;
+            background: transparent !important;
+            padding: 0 0.5rem;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #a0aec0;
+            transition: all 0.3s ease;
+        }
+        
+        .password-toggle:hover {
+            color: #38b2ac;
+        }
+        
+        .btn {
+            background: linear-gradient(90deg, #38b2ac, #10b981);
+            color: white;
+            padding: 1rem 1.6rem;
+            border-radius: 2rem;
+            width: 100%;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(90deg, #319795, #0da271);
+            box-shadow: 0 0 20px rgba(56, 178, 172, 0.5);
+            transform: translateY(-3px);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+        
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.2rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(56, 178, 172, 0.3);
+            background: rgba(26, 32, 44, 0.6);
+            color: #e2e8f0;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(56, 178, 172, 0.3);
+            border-color: #38b2ac;
+            background: rgba(26, 32, 44, 0.8);
+        }
+        
+        .social-btn img {
+            width: 22px;
+            height: 22px;
+            margin-right: 0.7rem;
+            transition: all 0.3s ease;
+            object-fit: contain;
+        }
+        
+        .social-btn:hover img {
+            transform: scale(1.2);
+        }
+        
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+        }
+        
+        @keyframes ripple {
+            to {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+        
+        .error-message {
+            color: #fc8181;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        
+        .input-error {
+            border-color: #fc8181 !important;
+        }
+        
+        .social-divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+        
+        .social-divider::before,
+        .social-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: rgba(56, 178, 172, 0.3);
+        }
+        
+        .social-divider span {
+            padding: 0 1rem;
+            color: #a0aec0;
+            font-size: 0.85rem;
+        }
+        
+        .wave-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(56,178,172,0.1)" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,149.3C960,160,1056,160,1152,138.7C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #38b2ac;
+            border-radius: 50%;
+            opacity: 0.6;
+            transition: transform 0.5s ease;
+        }
+        
+        .glow {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(56, 178, 172, 0.3), transparent);
+            pointer-events: none;
+            z-index: 0;
+            transition: all 0.4s ease;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="gradient-bg text-white min-h-screen flex items-center justify-center p-4">
+    <!-- Background elements -->
+    <div class="wave-bg"></div>
+    <div class="particles" id="particles"></div>
+    <div class="glow" id="glow"></div>
+    
+    <!-- Login Container -->
+    <div class="login-container" id="login-container">
+        <!-- Logo -->
+        <div class="flex justify-center mb-6">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-teal rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <span class="text-2xl font-bold">SoundWealth</span>
+            </div>
+        </div>
+        
+        <h1 class="text-3xl font-bold text-center mb-2">Welcome Back</h1>
+        <p class="text-gray-400 text-center mb-8">Sign in to continue your financial journey</p>
+        
+        <!-- Social Login Buttons -->
+        <div class="social-buttons space-y-3 mb-6">
+            <div class="social-btn" id="google-btn">
+                <img src="https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-1024.png" alt="Google">
+                Sign in with Google
+            </div>
+            <div class="social-btn" id="facebook-btn">
+                <img src="https://static.vecteezy.com/system/resources/previews/018/930/698/original/facebook-logo-facebook-icon-transparent-free-png.png" alt="Facebook">
+                Sign in with Facebook
+            </div>
+        </div>
+        
+        <!-- Divider -->
+        <div class="social-divider">
+            <span>Or continue with email</span>
+        </div>
+        
+        <!-- Login Form -->
+        <form id="login-form">
+            <div class="input-field">
+                <input type="email" id="email" placeholder=" " required>
+                <label for="email">Email Address</label>
+                <div class="error-message" id="email-error">Please enter a valid email address</div>
+            </div>
+            
+            <div class="input-field">
+                <input type="password" id="password" placeholder=" " required>
+                <label for="password">Password</label>
+                <button type="button" class="password-toggle" id="password-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </button>
+                <div class="error-message" id="password-error">Please enter the correct password</div>
+            </div>
+            
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center">
+                    <input type="checkbox" id="remember" class="w-4 h-4 text-teal bg-gray-700 border-gray-600 rounded focus:ring-teal focus:ring-offset-gray-800 focus:ring-2">
+                    <label for="remember" class="ml-2 text-sm text-gray-300">Remember me</label>
+                </div>
+                <a href="#" class="text-sm text-teal hover:underline">Forgot Password?</a>
+            </div>
+            
+            <button type="submit" class="btn mb-6">Sign In</button>
+        </form>
+        
+        <div class="text-center">
+            <span class="text-gray-400">Don't have an account? </span>
+            <a href="#" class="text-teal hover:underline font-medium">Sign up now</a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        // Password visibility toggle
+        const passwordToggle = document.getElementById('password-toggle');
+        const passwordInput = document.getElementById('password');
+        
+        passwordToggle.addEventListener('click', function() {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordToggle.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                    </svg>
+                `;
+            } else {
+                passwordInput.type = 'password';
+                passwordToggle.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                `;
+            }
+        });
+        
+        // Form validation
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const emailError = document.getElementById('email-error');
+        const passwordError = document.getElementById('password-error');
+        const loginForm = document.getElementById('login-form');
+        
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let isValid = true;
+            
+            if (!isValidEmail(emailInput.value)) {
+                emailInput.classList.add('input-error');
+                emailError.style.display = 'block';
+                isValid = false;
+                
+                gsap.to(emailInput, {
+                    x: 10,
+                    duration: 0.1,
+                    repeat: 3,
+                    yoyo: true,
+                    ease: "power1.inOut"
+                });
+            } else {
+                emailInput.classList.remove('input-error');
+                emailError.style.display = 'none';
+            }
+            
+            if (passwordInput.value.length < 6) {
+                passwordInput.classList.add('input-error');
+                passwordError.textContent = 'Password must be at least 6 characters';
+                passwordError.style.display = 'block';
+                isValid = false;
+                
+                gsap.to(passwordInput, {
+                    x: 10,
+                    duration: 0.1,
+                    repeat: 3,
+                    yoyo: true,
+                    ease: "power1.inOut"
+                });
+            } else {
+                passwordInput.classList.remove('input-error');
+                passwordError.style.display = 'none';
+            }
+            
+            if (isValid) {
+                // Simulate successful login
+                const btn = this.querySelector('button[type="submit"]');
+                btn.textContent = 'Signing in...';
+                
+                setTimeout(() => {
+                    btn.innerHTML = '<svg class="w-5 h-5 text-white mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+                    btn.classList.add('bg-emerald');
+                    
+                    setTimeout(() => {
+                        alert('Login successful! Redirecting to dashboard...');
+                        // In a real app, you would redirect to the dashboard here
+                    }, 1000);
+                }, 1500);
+            }
+        });
+        
+        emailInput.addEventListener('input', function() {
+            if (isValidEmail(emailInput.value)) {
+                emailInput.classList.remove('input-error');
+                emailError.style.display = 'none';
+            }
+        });
+        
+        passwordInput.addEventListener('input', function() {
+            if (passwordInput.value.length >= 6) {
+                passwordInput.classList.remove('input-error');
+                passwordError.style.display = 'none';
+            }
+        });
+
+        // Animations
+        gsap.from(".login-container", {
+            duration: 1.5,
+            opacity: 0,
+            y: 100,
+            ease: "power4.out",
+        });
+
+        gsap.from(".input-field", {
+            duration: 1,
+            opacity: 0,
+            x: -30,
+            stagger: 0.3,
+            delay: 0.5,
+            ease: "power3.out"
+        });
+
+        gsap.from(".social-buttons > div", {
+            duration: 1,
+            opacity: 0,
+            y: -30,
+            stagger: 0.2,
+            delay: 0.3,
+            ease: "power3.out"
+        });
+
+        gsap.to(".wave-bg", {
+            backgroundPosition: "200% 0",
+            duration: 20,
+            repeat: -1,
+            ease: "linear"
+        });
+
+        // Mouse move effects
+        document.addEventListener("mousemove", (e) => {
+            const glow = document.getElementById("glow");
+            gsap.to(glow, {
+                x: e.clientX - 60,
+                y: e.clientY - 60,
+                duration: 0.4,
+                ease: "power3.out"
+            });
+        });
+
+        const container = document.querySelector(".login-container");
+        container.addEventListener("mousemove", (e) => {
+            const rect = container.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+
+            gsap.to(container, {
+                duration: 0.6,
+                rotateX: rotateX + 'deg',
+                rotateY: rotateY + 'deg',
+                ease: "power3.out"
+            });
+        });
+
+        container.addEventListener("mouseleave", () => {
+            gsap.to(container, {
+                duration: 0.6,
+                rotateX: '0deg',
+                rotateY: '0deg',
+                ease: "power3.out"
+            });
+        });
+
+        // Create particles
+        const particlesContainer = document.getElementById("particles");
+        function createParticle() {
+            const particle = document.createElement("div");
+            particle.classList.add("particle");
+            particlesContainer.appendChild(particle);
+
+            const size = Math.random() * 6 + 4;
+            const startX = Math.random() * window.innerWidth;
+            const startY = Math.random() * window.innerHeight;
+
+            gsap.set(particle, {
+                x: startX,
+                y: startY,
+                scale: size / 8
+            });
+
+            gsap.to(particle, {
+                x: startX + (Math.random() - 0.5) * 200,
+                y: startY + (Math.random() - 0.5) * 200,
+                opacity: 0,
+                scale: 0,
+                duration: Math.random() * 4 + 3,
+                ease: "power2.out",
+                onComplete: () => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                }
+            });
+
+            particle.addEventListener("mouseenter", () => {
+                gsap.to(particle, {
+                    scale: 1.5,
+                    background: "#10b981",
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+        }
+
+        // Start creating particles after a short delay
+        setTimeout(() => {
+            setInterval(createParticle, 300);
+        }, 500);
+
+        // Ripple effect for buttons
+        const buttons = document.querySelectorAll('.btn, .social-btn');
+        
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+                
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size/2;
+                const y = e.clientY - rect.top - size/2;
+                
+                ripple.style.width = ripple.style.height = `${size}px`;
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                
+                setTimeout(() => {
+                    if (ripple.parentNode) {
+                        ripple.parentNode.removeChild(ripple);
+                    }
+                }, 600);
+                
+                gsap.to(this, {
+                    duration: 0.2,
+                    scale: 0.95,
+                    onComplete: () => {
+                        gsap.to(this, {duration: 0.2, scale: 1});
+                    }
+                });
+            });
+        });
+        
+        // Preload social icons
+        window.addEventListener('load', function() {
+            const googleIcon = new Image();
+            googleIcon.src = 'https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-1024.png';
+            
+            const facebookIcon = new Image();
+            facebookIcon.src = 'https://static.vecteezy.com/system/resources/previews/018/930/698/original/facebook-logo-facebook-icon-transparent-free-png.png';
+        });
+    </script>
+</body>
+</html>

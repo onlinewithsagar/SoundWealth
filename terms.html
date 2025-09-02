@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - SoundWealth</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1a202c',
+                        'charcoal': '#2d3748',
+                        'teal': '#38b2ac',
+                        'emerald': '#10b981',
+                        'gold': '#f6ad55',
+                        'oss-blue': '#3b82f6'
+                    },
+                    fontFamily: {
+                        'modern': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        }
+        
+        .pulse-animation {
+            animation: pulse-enhanced 3s infinite;
+        }
+        
+        @keyframes pulse-enhanced {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(56, 178, 172, 0.7);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 15px rgba(56, 178, 172, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(56, 178, 172, 0);
+            }
+        }
+        
+        .hover-lift {
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #38b2ac, #10b981, #f6ad55);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-shift 5s ease infinite;
+            background-size: 200% auto;
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-item:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #38b2ac;
+            transition: width 0.4s ease;
+        }
+        
+        .nav-item:hover:after {
+            width: 100%;
+        }
+        
+        .section-number {
+            background: linear-gradient(135deg, #38b2ac 0%, #10b981 100%);
+        }
+
+        /* Go to Top Button Styles */
+        .go-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #38b2ac 0%, #10b981 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .go-to-top.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .go-to-top:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body class="gradient-bg text-white min-h-screen">
+    <!-- Navigation -->
+    <nav class="container mx-auto px-6 py-4 sticky top-0 z-50 bg-navy bg-opacity-90 backdrop-blur-sm shadow-md">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-teal rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <span class="text-xl font-bold gradient-text">SoundWealth</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="container mx-auto px-6 py-8">
+        <div class="bg-charcoal rounded-2xl p-8 hover-lift fade-in">
+            <h1 class="text-4xl font-bold mb-4 gradient-text">Terms of Service</h1>
+            <p class="text-gray-400 text-lg">Last updated: <span class="font-semibold">December 2024</span></p>
+            <p class="text-gray-300 mt-4">Welcome to SoundWealth! These terms explain the rules and guidelines for using our expense tracking service. By using our website, you agree to follow these terms.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="container mx-auto px-6 py-8">
+        <div class="bg-charcoal rounded-2xl p-8 hover-lift fade-in">
+            <!-- Section 1: Acceptance of Terms -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                    <span class="section-number text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">1</span>
+                    Acceptance of Terms
+                </h2>
+                <div class="ml-11 text-gray-300 space-y-3">
+                    <p>By creating an account or using SoundWealth, you agree to be bound by these Terms of Service and our Privacy Policy. If you don't agree with any part of these terms, please don't use our service.</p>
+                    <p>These terms apply to all users, including visitors, registered users, and anyone who accesses our website.</p>
+                </div>
+            </section>
+
+            <!-- Section 2: Description of Service -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                    <span class="section-number text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">2</span>
+                    Our Service
+                </h2>
+                <div class="ml-11 text-gray-300 space-y-3">
+                    <p>SoundWealth is a web-based application that helps you:</p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Track and categorize your personal expenses</li>
+                        <li>Generate reports and insights about your spending</li>
+                        <li>Set budgets and financial goals</li>
+                        <li>Export your financial data</li>
+                    </ul>
+                    <p class="mt-3 font-semibold text-amber-400 bg-amber-900 p-3 rounded-lg">
+                        <strong>Important:</strong> SoundWealth is for personal expense tracking only. We are not a financial advisor, bank, or accounting service. Always consult with qualified professionals for financial advice.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 3: User Accounts -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                    <span class="section-number text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">3</span>
+                    User Accounts and Responsibilities
+                </h2>
+                <div class="ml-11 text-gray-300 space-y-3">
+                    <p>When you create an account, you agree to:</p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Provide accurate and complete information</li>
+                        <li>Keep your login credentials secure and confidential</li>
+                        <li>Notify us immediately if you suspect unauthorized access</li>
+                        <li>Use the service only for lawful purposes</li>
+                        <li>Not share your account with others</li>
+                        <li>Be responsible for all activity under your account</li>
+                    </ul>
+                    <p class="mt-3">You must be at least 13 years old to create an account. If you're under 18, you need parental permission to use our service.</p>
+                </div>
+            </section>
+
+            <!-- Section 4: Acceptable Use -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                    <span class="section-number text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">4</span>
+                    Acceptable Use Policy
+                </h2>
+                <div class="ml-11 text-gray-300 space-y-3">
+                    <p>You may NOT use our service to:</p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Upload malicious software or attempt to hack our systems</li>
+                        <li>Use the service for illegal activities or money laundering</li>
+                        <li>Harass other users or our staff</li>
+                        <li>Attempt to access other users' accounts or data</li>
+                        <li>Use automated tools to scrape or download our content</li>
+                        <li>Reverse engineer or copy our software</li>
+                        <li>Use the service to compete with us or create a similar product</li>
+                    </ul>
+                    <p class="mt-3">Violation of these rules may result in immediate account suspension or termination.</p>
+                </div>
+            </section>
+
+            <!-- Section 5: Data and Privacy -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                    <span class="section-number text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">5</span>
+                    Your Data and Privacy
+                </h2>
+                <div class="ml-11 text-gray-300 space-y-3">
+                    <p>Regarding the data you enter into SoundWealth:</p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li><strong>You own your data:</strong> All expense information you enter belongs to you</li>
+                        <li><strong>We protect your data:</strong> We use industry-standard security measures</li>
+                        <li><strong>You can export your data:</strong> Download your information at any time</li>
+                        <li><strong>You can delete your data:</strong> Remove your account and all data permanently</li>
+                    </ul>
+                    <p class="mt-3">For detailed information about how we handle your data, please read our <a href="#" class="text-teal hover:underline">Privacy Policy</a>.</p>
+                </div>
+            </section>
+
+            <!-- Section 6: Service Availability -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                    <span class="section-number text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">6</span>
+                    Service Availability
+                </h2>
+                <div class="ml-11 text-gray-300 space-y-3">
+                    <p>We strive to keep SoundWealth available 24/7, but we cannot guarantee uninterrupted service. Our service may be temporarily unavailable due to:</p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Scheduled maintenance and updates</li>
+                        <li>Technical issues or server problems</li>
+                        <li>Internet connectivity issues</li>
+                        <li>Force majeure events beyond our control</li>
+                    </ul>
+                    <p class="mt-3">We will try to notify users in advance of planned maintenance whenever possible.</p>
+                </div>
+            </section>
+
+            <!-- Section 7: Payments and Refunds -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                    <span class="section-number text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">7</span>
+                    Payments and Refunds
+                </h2>
+                <div class="ml-11 text-gray-300 space-y-3">
+                    <p>If we offer paid features in the future:</p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>All fees will be clearly displayed before purchase</li>
+                        <li>Payments are processed securely through trusted payment providers</li>
+                        <li>Subscriptions will auto-renew unless cancelled</li>
+                        <li>You can cancel your subscription at any time</li>
+                        <li>Refunds are available within 30 days of purchase for annual plans</li>
+                        <li>No refunds for monthly subscriptions after the billing period starts</li>
+                    </ul>
+                    <p class="mt-3">Currently, SoundWealth is free to use. We will notify users before introducing any paid features.</p>
+                </div>
+            </section>
+
+            <!-- Section 8: Disclaimers -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                    <span class="section-number text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">8</span>
+                    Disclaimers and Limitations
+                </h2>
+                <div class="ml-11 text-gray-300 space-y-3">
+                    <p class="font-semibold">SoundWealth is provided "as is" without any warranties. We make no guarantees about:</p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>The accuracy of calculations or reports</li>
+                        <li>Uninterrupted or error-free service</li>
+                        <li>The suitability for your specific financial needs</li>
+                        <li>Compatibility with all devices or browsers</li>
+                    </ul>
+                    <div class="bg-red-900 border-l-4 border-red-600 p-4 mt-4">
+                        <p class="font-semibold text-red-400">Important Limitation:</p>
+                        <p class="text-red-300">We are not liable for any financial losses, data loss, or other damages resulting from your use of SoundWealth. Always keep backup copies of important financial data.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Termination -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                    <span class="section-number text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">9</span>
+                    Account Termination
+                </h2>
+                <div class="ml-11 text-gray-300 space-y-3">
+                    <p><strong>You can terminate your account at any time</strong> by:</p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Using the delete account option in your settings</li>
+                        <li>Contacting our support team</li>
+                    </ul>
+                    <p class="mt-3"><strong>We may terminate accounts if:</strong></p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>You violate these terms of service</li>
+                        <li>You use the service for illegal activities</li>
+                        <li>Your account remains inactive for over 2 years</li>
+                        <li>We discontinue the service (with 30 days notice)</li>
+                    </ul>
+                    <p class="mt-3">Upon termination, you have 30 days to download your data before it's permanently deleted.</p>
+                </div>
+            </section>
+
+            <!-- Section 10: Changes to Terms -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                    <span class="section-number text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">10</span>
+                    Changes to These Terms
+                </h2>
+                <div class="ml-11 text-gray-300 space-y-3">
+                    <p>We may update these terms from time to time. When we make changes:</p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>We'll update the "Last updated" date at the top</li>
+                        <li>We'll notify you by email for significant changes</li>
+                        <li>We'll post a notice on our website for 30 days</li>
+                        <li>Continued use of the service means you accept the new terms</li>
+                    </ul>
+                    <p class="mt-3">If you don't agree with updated terms, you can delete your account before they take effect.</p>
+                </div>
+            </section>
+
+            <!-- Section 11: Contact Information -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                    <span class="section-number text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">11</span>
+                    Contact Us
+                </h2>
+                <div class="ml-11 text-gray-300 space-y-3">
+                    <p>If you have questions about these terms or need help with your account, please contact us:</p>
+                    <div class="bg-navy rounded-lg p-4 mt-4">
+                        <p><strong>Email:</strong> support@soundwealth.com</p>
+                        <p><strong>Legal Questions:</strong> legal@soundwealth.com</p>
+                        <p><strong>Address:</strong> 123 Terms Street, Legal City, LC 12345</p>
+                        <p><strong>Response Time:</strong> We typically respond within 48 hours</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Governing Law -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                    <span class="section-number text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">12</span>
+                    Governing Law
+                </h2>
+                <div class="ml-11 text-gray-300 space-y-3">
+                    <p>These terms are governed by the laws of [Your State/Country]. Any disputes will be resolved in the courts of [Your Jurisdiction].</p>
+                    <p>If any part of these terms is found to be unenforceable, the rest of the terms will remain in effect.</p>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <!-- Go to Top Button -->
+    <a href="#" class="go-to-top" id="goToTop">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </a>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-700 py-12 mt-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                    <div class="w-8 h-8 bg-teal rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold gradient-text">SoundWealth</span>
+                </div>
+                <div class="flex space-x-8 text-gray-400">
+                    <a href="privacypolicy.html" class="nav-item hover:text-teal transition-colors">Privacy</a>
+                    <a href="terms.html" class="nav-item hover:text-teal transition-colors">Terms</a>
+                    <a href="support.html" class="nav-item hover:text-teal transition-colors">Support</a>
+                    <a href="faqs.html" class="nav-item hover:text-teal transition-colors">FAQs</a>
+                </div>
+            </div>
+            <div class="text-center text-gray-400 mt-8">
+                <p>&copy; 2024 SoundWealth. These terms are designed to be fair and understandable for all users.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize fade-in animations
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.fade-in').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight) {
+                    el.classList.add('visible');
+                }
+            });
+        });
+
+        // Fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(element => {
+            fadeObserver.observe(element);
+        });
+
+        // Go to Top button functionality
+        const goToTopButton = document.getElementById('goToTop');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                goToTopButton.classList.add('visible');
+            } else {
+                goToTopButton.classList.remove('visible');
+            }
+        });
+
+        goToTopButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Center - SoundWealth</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1a202c',
+                        'charcoal': '#2d3748',
+                        'teal': '#38b2ac',
+                        'emerald': '#10b981',
+                        'gold': '#f6ad55',
+                        'oss-blue': '#3b82f6'
+                    },
+                    fontFamily: {
+                        'modern': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        }
+        
+        .pulse-animation {
+            animation: pulse-enhanced 3s infinite;
+        }
+        
+        @keyframes pulse-enhanced {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(56, 178, 172, 0.7);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 15px rgba(56, 178, 172, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(56, 178, 172, 0);
+            }
+        }
+        
+        .hover-lift {
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #38b2ac, #10b981, #f6ad55);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-shift 5s ease infinite;
+            background-size: 200% auto;
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-item:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #38b2ac;
+            transition: width 0.4s ease;
+        }
+        
+        .nav-item:hover:after {
+            width: 100%;
+        }
+        
+        .section-number {
+            background: linear-gradient(135deg, #38b2ac 0%, #10b981 100%);
+        }
+
+        /* Go to Top Button Styles */
+        .go-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #38b2ac 0%, #10b981 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .go-to-top.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .go-to-top:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body class="gradient-bg text-white min-h-screen">
+    <!-- Navigation -->
+    <nav class="container mx-auto px-6 py-4 sticky top-0 z-50 bg-navy bg-opacity-90 backdrop-blur-sm shadow-md">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-teal rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <span class="text-xl font-bold gradient-text">SoundWealth</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="container mx-auto px-6 py-8">
+        <div class="bg-charcoal rounded-2xl p-8 hover-lift fade-in">
+            <h1 class="text-4xl font-bold mb-4 gradient-text">Support Center</h1>
+            <p class="text-gray-400 text-lg">We're here to help! Find answers to common questions or get in touch with our support team.</p>
+            <div class="mt-6 flex flex-wrap gap-4">
+                <div class="bg-emerald-900 text-emerald-100 px-4 py-2 rounded-full text-sm font-semibold">
+                    📞 Average Response: 2 hours
+                </div>
+                <div class="bg-teal-900 text-teal-100 px-4 py-2 rounded-full text-sm font-semibold">
+                    💬 Live Chat Available
+                </div>
+                <div class="bg-oss-blue-900 text-oss-blue-100 px-4 py-2 rounded-full text-sm font-semibold">
+                    📚 Comprehensive FAQ
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Help Options -->
+    <section class="container mx-auto px-6 py-8">
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-charcoal rounded-2xl p-6 text-center hover-lift fade-in cursor-pointer" onclick="scrollToSection('faq')">
+                <div class="text-4xl mb-4">❓</div>
+                <h3 class="text-xl font-semibold text-gray-300 mb-2">FAQ</h3>
+                <p class="text-gray-400">Find quick answers to common questions</p>
+            </div>
+            <div class="bg-charcoal rounded-2xl p-6 text-center hover-lift fade-in cursor-pointer" onclick="scrollToSection('contact')">
+                <div class="text-4xl mb-4">📧</div>
+                <h3 class="text-xl font-semibold text-gray-300 mb-2">Contact Us</h3>
+                <p class="text-gray-400">Get personalized help from our team</p>
+            </div>
+            <div class="bg-charcoal rounded-2xl p-6 text-center hover-lift fade-in cursor-pointer" onclick="scrollToSection('guides')">
+                <div class="text-4xl mb-4">📖</div>
+                <h3 class="text-xl font-semibold text-gray-300 mb-2">User Guides</h3>
+                <p class="text-gray-400">Step-by-step tutorials and tips</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="container mx-auto px-6 py-8">
+        <div class="bg-charcoal rounded-2xl p-8 hover-lift fade-in">
+            <!-- Section 1: Frequently Asked Questions -->
+            <section id="faq" class="mb-8">
+                <h2 class="text-2xl font-semibold mb-6 flex items-center">
+                    <span class="section-number text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">1</span>
+                    Frequently Asked Questions
+                </h2>
+                <div class="ml-11 space-y-4">
+                    <!-- FAQ Item 1 -->
+                    <div class="border border-gray-600 rounded-lg">
+                        <button class="w-full text-left p-4 font-semibold text-gray-300 hover:bg-gray-700 flex justify-between items-center" onclick="toggleFAQ('faq1')">
+                            How do I create my first expense entry?
+                            <span id="faq1-icon" class="text-gray-400">+</span>
+                        </button>
+                        <div id="faq1" class="hidden p-4 pt-0 text-gray-400">
+                            <p>Creating your first expense is easy! Simply click the "Add Expense" button on your dashboard, enter the amount, select a category, add a description, and choose the date. Click "Save" and you're done!</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="border border-gray-600 rounded-lg">
+                        <button class="w-full text-left p-4 font-semibold text-gray-300 hover:bg-gray-700 flex justify-between items-center" onclick="toggleFAQ('faq2')">
+                            Can I export my expense data?
+                            <span id="faq2-icon" class="text-gray-400">+</span>
+                        </button>
+                        <div id="faq2" class="hidden p-4 pt-0 text-gray-400">
+                            <p>Yes! You can export your data in multiple formats (CSV, PDF, Excel) from the "Settings" menu. Go to "Data Export" and choose your preferred format and date range.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="border border-gray-600 rounded-lg">
+                        <button class="w-full text-left p-4 font-semibold text-gray-300 hover:bg-gray-700 flex justify-between items-center" onclick="toggleFAQ('faq3')">
+                            How do I set up budget categories?
+                            <span id="faq3-icon" class="text-gray-400">+</span>
+                        </button>
+                        <div id="faq3" class="hidden p-4 pt-0 text-gray-400">
+                            <p>Navigate to "Budgets" in the main menu, click "Create New Budget," choose your category (or create a custom one), set your monthly limit, and save. You'll get notifications when you're close to your limit.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="border border-gray-600 rounded-lg">
+                        <button class="w-full text-left p-4 font-semibold text-gray-300 hover:bg-gray-700 flex justify-between items-center" onclick="toggleFAQ('faq4')">
+                            Is my financial data secure?
+                            <span id="faq4-icon" class="text-gray-400">+</span>
+                        </button>
+                        <div id="faq4" class="hidden p-4 pt-0 text-gray-400">
+                            <p>Absolutely! We use bank-level encryption (256-bit SSL) to protect your data. Your information is encrypted both in transit and at rest. We never share your personal financial data with third parties.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 5 -->
+                    <div class="border border-gray-600 rounded-lg">
+                        <button class="w-full text-left p-4 font-semibold text-gray-300 hover:bg-gray-700 flex justify-between items-center" onclick="toggleFAQ('faq5')">
+                            Can I access SoundWealth on my mobile device?
+                            <span id="faq5-icon" class="text-gray-400">+</span>
+                        </button>
+                        <div id="faq5" class="hidden p-4 pt-0 text-gray-400">
+                            <p>Yes! SoundWealth is fully responsive and works great on smartphones and tablets. Simply visit our website in your mobile browser for the full experience.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 6 -->
+                    <div class="border border-gray-600 rounded-lg">
+                        <button class="w-full text-left p-4 font-semibold text-gray-300 hover:bg-gray-700 flex justify-between items-center" onclick="toggleFAQ('faq6')">
+                            What if I accidentally delete an expense?
+                            <span id="faq6-icon" class="text-gray-400">+</span>
+                        </button>
+                        <div id="faq6" class="hidden p-4 pt-0 text-gray-400">
+                            <p>Don't worry! Deleted expenses go to your "Trash" folder for 30 days before permanent deletion. You can restore them anytime during this period from Settings > Data Management > Trash.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Contact Options -->
+            <section id="contact" class="mb-8">
+                <h2 class="text-2xl font-semibold mb-6 flex items-center">
+                    <span class="section-number text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">2</span>
+                    Contact Our Support Team
+                </h2>
+                <div class="ml-11 grid md:grid-cols-2 gap-6">
+                    <!-- Email Support -->
+                    <div class="border border-gray-600 rounded-lg p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-teal-900 text-teal-100 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                                📧
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-300">Email Support</h3>
+                                <p class="text-sm text-gray-400">Response within 2-4 hours</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Get detailed help with complex issues</p>
+                        <a href="mailto:support@soundwealth.com" class="bg-teal text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition-colors">
+                            Email Us
+                        </a>
+                    </div>
+
+                    <!-- Live Chat -->
+                    <div class="border border-gray-600 rounded-lg p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-emerald-900 text-emerald-100 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                                💬
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-300">Live Chat</h3>
+                                <p class="text-sm text-gray-400">Available 9 AM - 6 PM EST</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Quick answers to urgent questions</p>
+                        <button class="bg-emerald text-white px-4 py-2 rounded-lg hover:bg-emerald-600 transition-colors" onclick="startChat()">
+                            Start Chat
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: User Guides -->
+            <section id="guides" class="mb-8">
+                <h2 class="text-2xl font-semibold mb-6 flex items-center">
+                    <span class="section-number text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">3</span>
+                    User Guides & Tutorials
+                </h2>
+                <div class="ml-11 grid md:grid-cols-2 gap-4">
+                    <div class="border border-gray-600 rounded-lg p-4 hover:bg-gray-700 cursor-pointer">
+                        <h4 class="font-semibold text-gray-300 mb-2">🚀 Getting Started Guide</h4>
+                        <p class="text-gray-400 text-sm">Complete walkthrough for new users</p>
+                    </div>
+                    <div class="border border-gray-600 rounded-lg p-4 hover:bg-gray-700 cursor-pointer">
+                        <h4 class="font-semibold text-gray-300 mb-2">📊 Creating Reports</h4>
+                        <p class="text-gray-400 text-sm">Generate insights from your expense data</p>
+                    </div>
+                    <div class="border border-gray-600 rounded-lg p-4 hover:bg-gray-700 cursor-pointer">
+                        <h4 class="font-semibold text-gray-300 mb-2">💰 Budget Management</h4>
+                        <p class="text-gray-400 text-sm">Set up and track your spending limits</p>
+                    </div>
+                    <div class="border border-gray-600 rounded-lg p-4 hover:bg-gray-700 cursor-pointer">
+                        <h4 class="font-semibold text-gray-300 mb-2">📱 Mobile Tips</h4>
+                        <p class="text-gray-400 text-sm">Best practices for mobile usage</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Troubleshooting -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-6 flex items-center">
+                    <span class="section-number text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">4</span>
+                    Common Issues & Solutions
+                </h2>
+                <div class="ml-11 space-y-4">
+                    <div class="bg-navy rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-300 mb-2">🔐 Can't log in to my account</h4>
+                        <p class="text-gray-400 text-sm mb-2">Try these steps:</p>
+                        <ul class="text-gray-400 text-sm list-disc list-inside space-y-1">
+                            <li>Check your email and password for typos</li>
+                            <li>Use the "Forgot Password" link to reset</li>
+                            <li>Clear your browser cache and cookies</li>
+                            <li>Try a different browser or incognito mode</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-navy rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-300 mb-2">📊 Reports not loading properly</h4>
+                        <p class="text-gray-400 text-sm mb-2">Quick fixes:</p>
+                        <ul class="text-gray-400 text-sm list-disc list-inside space-y-1">
+                            <li>Refresh the page and wait a moment</li>
+                            <li>Check your internet connection</li>
+                            <li>Try reducing the date range for large datasets</li>
+                            <li>Contact support if the issue persists</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-navy rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-300 mb-2">💾 Data export not working</h4>
+                        <p class="text-gray-400 text-sm mb-2">Troubleshooting steps:</p>
+                        <ul class="text-gray-400 text-sm list-disc list-inside space-y-1">
+                            <li>Ensure you have expenses in the selected date range</li>
+                            <li>Check your browser's download settings</li>
+                            <li>Try a smaller date range if you have lots of data</li>
+                            <li>Disable browser extensions that might block downloads</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Feedback Form -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-6 flex items-center">
+                    <span class="section-number text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">5</span>
+                    Send Us Feedback
+                </h2>
+                <div class="ml-11">
+                    <p class="text-gray-400 mb-4">Help us improve SoundWealth by sharing your thoughts and suggestions!</p>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Feedback Type</label>
+                            <select class="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-teal focus:border-teal bg-navy text-gray-300">
+                                <option>Bug Report</option>
+                                <option>Feature Request</option>
+                                <option>General Feedback</option>
+                                <option>Compliment</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Your Message</label>
+                            <textarea rows="4" class="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-teal focus:border-teal bg-navy text-gray-300" placeholder="Tell us what's on your mind..."></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Email (optional)</label>
+                            <input type="email" class="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-teal focus:border-teal bg-navy text-gray-300" placeholder="your@email.com">
+                        </div>
+                        <button type="submit" class="bg-teal text-white px-6 py-3 rounded-lg hover:bg-teal-600 transition-colors">
+                            Send Feedback
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6: System Status -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-6 flex items-center">
+                    <span class="section-number text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">6</span>
+                    System Status
+                </h2>
+                <div class="ml-11">
+                    <div class="bg-navy border border-gray-600 rounded-lg p-4">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-emerald rounded-full mr-3"></div>
+                            <span class="font-semibold text-emerald-100">All Systems Operational</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-2">Last updated: 5 minutes ago</p>
+                    </div>
+                    <div class="mt-4 grid md:grid-cols-3 gap-4 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Website</span>
+                            <span class="text-emerald font-semibold">✓ Online</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Database</span>
+                            <span class="text-emerald font-semibold">✓ Online</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Exports</span>
+                            <span class="text-emerald font-semibold">✓ Online</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <!-- Go to Top Button -->
+    <a href="#" class="go-to-top" id="goToTop">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </a>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-700 py-12 mt-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                    <div class="w-8 h-8 bg-teal rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold gradient-text">SoundWealth</span>
+                </div>
+                <div class="flex space-x-8 text-gray-400">
+                    <a href="privacypolicy.html" class="nav-item hover:text-teal transition-colors">Privacy</a>
+                    <a href="terms.html" class="nav-item hover:text-teal transition-colors">Terms</a>
+                    <a href="support.html" class="nav-item hover:text-teal transition-colors">Support</a>
+                    <a href="faqs.html" class="nav-item hover:text-teal transition-colors">FAQs</a>
+                </div>
+            </div>
+            <div class="text-center text-gray-400 mt-8">
+                <p>&copy; 2024 SoundWealth. We're committed to providing excellent support to all our users.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize fade-in animations
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.fade-in').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight) {
+                    el.classList.add('visible');
+                }
+            });
+        });
+
+        // Fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(element => {
+            fadeObserver.observe(element);
+        });
+
+        // Go to Top button functionality
+        const goToTopButton = document.getElementById('goToTop');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                goToTopButton.classList.add('visible');
+            } else {
+                goToTopButton.classList.remove('visible');
+            }
+        });
+
+        goToTopButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        function toggleFAQ(faqId) {
+            const faqContent = document.getElementById(faqId);
+            const faqIcon = document.getElementById(faqId + '-icon');
+            
+            if (faqContent.classList.contains('hidden')) {
+                faqContent.classList.remove('hidden');
+                faqIcon.textContent = '−';
+            } else {
+                faqContent.classList.add('hidden');
+                faqIcon.textContent = '+';
+            }
+        }
+
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        function startChat() {
+            alert('Live chat would open here! This is a demo - in a real implementation, this would connect to your chat system.');
+        }
+
+        function submitFeedback(event) {
+            event.preventDefault();
+            alert('Thank you for your feedback! We\'ll review it and get back to you if needed.');
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>
